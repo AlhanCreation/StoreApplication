@@ -3,25 +3,25 @@ import { Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 
 // Auth components
-import Login from '../components/auth/Login';
-import Register from '../components/auth/Register';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
 
 // Home component
-import Home from '../components/common/Home';
+import Home from '../pages/Home';
 
 // Admin components
-import AdminDashboard from '../components/admin/Dashboard';
-import UsersList from '../components/admin/UsersList';
-import CreateUser from '../components/admin/CreateUser';
-import CreateStore from '../components/admin/CreateStore';
+import AdminDashboard from '../pages/Dashboard';
+import UsersList from '../pages/UsersList';
+import CreateUser from '../pages/CreateUser';
+import CreateStore from '../pages/CreateStore';
 
 // User components
-import StoresList from '../components/user/StoresList';
-import StoreDetails from '../components/user/StoreDetails';
-import UserProfile from '../components/user/UserProfile';
+import StoresList from '../pages/StoresList';
+import StoreDetails from '../pages/StoreDetails';
+import UserProfile from '../pages/UserProfile';
 
 // Store owner components
-import StoreDashboard from '../components/store-owner/StoreDashboard';
+import StoreDashboard from '../pages/StoreDashboard';
 
 const AppRoutes = () => {
   return (
@@ -50,10 +50,8 @@ const AppRoutes = () => {
         <Route path="/profile" element={<UserProfile />} />
       </Route>
       
-      {/* Protected root route for authenticated users */}
-      <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Home />} />
-      </Route>
+      {/* Public root route */}
+      <Route path="/" element={<Home />} />
       
       {/* 404 route */}
       <Route path="*" element={<div className="text-center mt-5"><h1>404 Not Found</h1></div>} />
