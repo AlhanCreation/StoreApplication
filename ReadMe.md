@@ -202,3 +202,6 @@ frontend/
 - `react-dom`: For rendering React components in the DOM.
 - `react-router-dom`: For client-side routing.
 - `react-scripts`: Scripts and configurations from Create React App.
+- 'Bootstrap (via CDN)' → For responsive design and prebuilt UI components.
+
+- 'Font Awesome (via CDN)' → For scalable icons and social media logos.
