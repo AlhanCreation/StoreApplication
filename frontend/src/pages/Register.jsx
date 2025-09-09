@@ -9,7 +9,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
-  const { register: registerField, handleSubmit } = useForm();
+  const { register: registerField, handleSubmit, formState: { errors } } = useForm({ mode: 'onBlur' });
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -40,38 +40,82 @@ const Register = () => {
                   <div className="mb-3">
                     <input
                       id="name"
-                      {...registerField('name')}
+                      {...registerField('name', {
+                        required: 'Full Name is required',
+                        minLength: {
+                          value: 20,
+                          message: 'Full Name must be at least 20 characters'
+                        },
+                        maxLength: {
+                          value: 60,
+                          message: 'Full Name must not exceed 60 characters'
+                        }
+                      })}
                       type="text"
-                      className="form-control"
+                      className={`form-control ${errors.name ? 'is-invalid' : ''}`}
                       placeholder="Full Name"
                     />
+                    {errors.name && <div className="invalid-feedback">{errors.name.message}</div>
+                    }
                   </div>
                   <div className="mb-3">
                     <input
                       id="email-address"
-                      {...registerField('email')}
+                      {...registerField('email', {
+                        required: 'Email is required',
+                        pattern: {
+                          value: /^\S+@\S+\.\S+$/,
+                          message: 'Email must be a valid email address'
+                        }
+                      })}
                       type="email"
-                      className="form-control"
+                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                       placeholder="Email address"
                     />
+                    {errors.email && <div className="invalid-feedback">{errors.email.message}</div>
+                    }
                   </div>
                   <div className="mb-3">
                     <input
                       id="address"
-                      {...registerField('address')}
+                      {...registerField('address', {
+                        required: 'Address is required',
+                        maxLength: {
+                          value: 400,
+                          message: 'Address must not exceed 400 characters'
+                        }
+                      })}
                       type="text"
-                      className="form-control"
+                      className={`form-control ${errors.address ? 'is-invalid' : ''}`}
                       placeholder="Address"
                     />
+                    {errors.address && <div className="invalid-feedback">{errors.address.message}</div>
+                    }
                   </div>
                   <div className="mb-3">
                     <input
                       id="password"
-                      {...registerField('password')}
+                      {...registerField('password', {
+                        required: 'Password is required',
+                        minLength: {
+                          value: 8,
+                          message: 'Password must be at least 8 characters'
+                        },
+                        maxLength: {
+                          value: 16,
+                          message: 'Password must not exceed 16 characters'
+                        },
+                        pattern: {
+                          value: /(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
+                          message: 'Password must include at least one uppercase letter and one special character'
+                        }
+                      })}
                       type="password"
-                      className="form-control"
+                      className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                       placeholder="Password"
                     />
+                    {errors.password && <div className="invalid-feedback">{errors.password.message}</div>
+                    }
                   </div>
 
                   {error && <div className="alert alert-danger text-center mb-3">{error}</div>}
